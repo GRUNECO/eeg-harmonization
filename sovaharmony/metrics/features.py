@@ -10,7 +10,6 @@ from sovaflow.utils import createRaw
 from sovachronux.qeeg_psd_chronux import qeeg_psd_chronux
 from sovaharmony.utils import _verify_epoch_continuous,_verify_epochs_axes
 import mne
-import yasa
 import numpy as np
 
 channels_reduction={'cresta':['F3','F4','C3','C4','P3','P4','O1','O2'],
@@ -53,6 +52,7 @@ def qeeg_psd_irasa(data, sf,bands,ch_names,osc=True, aperiodic=True,fmin=1,fmax=
    
     power = {}
     # PSD using YASA
+    import yasa
     freqs, psd_aperiodic, psd_osc,fit_params = yasa.irasa(data, sf, ch_names=None, band=(fmin, fmax), win_sec=win_sec, return_fit=True)
     if osc:
         # To avoid the negative values that YASA gets, we use the following:
